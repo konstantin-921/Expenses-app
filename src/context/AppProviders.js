@@ -9,20 +9,6 @@ function AppProviders({ children }) {
         return {
           ...expensesDetailsState,
         }
-      // case 'add-accolade':
-      //   return [ ...accoladesState, {
-      //       accolade: [],
-      //       value: ''
-      // }]
-      // case 'remove-accolade':
-      //   accoladesState.splice(action.payload.index, 1)
-      //   return accoladesState
-      // case 'set-accolade-tag':
-      //   accoladesState[action.payload.index] = action.payload
-      //   return accoladesState
-      // case 'set-value':
-      //   accoladesState[action.payload.index].value = action.payload.value
-      //   return accoladesState
       default:
         return expensesDetailsState
     }
