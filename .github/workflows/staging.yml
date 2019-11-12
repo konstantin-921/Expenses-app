@@ -27,7 +27,7 @@ jobs:
         docker build -t expenses-app .
     - name: Tag the Docker image
       run: |
-        docker tag expenses-app:latest 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:latest
+        docker tag expenses-app 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:`git rev-parse HEAD`
     - name: Push the Docker image to AWS ECR
       run: |
-        docker push 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:latest
+        docker push 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:`git rev-parse HEAD`
