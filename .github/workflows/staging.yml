@@ -1,0 +1,25 @@
+on:
+  push:
+    branches: 
+      - master
+name: Staging - Expenses-app
+jobs:
+  buildImage:
+    name: Build and Deploy Expenses-app
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build Expenses-app Docker image
+      run: |
+        cd client-app 
+        npm ci
+        docker image build -f Dockerfile -t expenses-staging ./.
+    - name: Set AWS credentionals
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set region us-east-1
+        aws configure set output json
+    - name: Test AWS CLI
+      run: |
+        aws ec2 describe-instance-attribute --instance-id i-07c865c5bbf880d94 --attribute instanceType
