@@ -9,10 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Build Expenses-app Docker image
-      run: |
-        npm ci
-        docker image build -f Dockerfile -t expenses-staging ./.
     - name: Set AWS credentionals
       run: |
         aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -22,3 +18,16 @@ jobs:
     - name: Test AWS CLI
       run: |
         aws ec2 describe-instance-attribute --instance-id i-07c865c5bbf880d94 --attribute instanceType
+    - name: Login AWS ECR
+      run: |
+        npm ci
+        $(aws ecr get-login --no-include-email --region us-east-1)
+    - name: Build Expenses-app Docker image
+      run: |
+        docker build -t expenses-app .
+    - name: Tag the Docker image
+      run: |
+        docker tag expenses-app:latest 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:latest
+    - name: Push the Docker image to AWS ECR
+      run: |
+        docker push 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:latest
