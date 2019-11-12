@@ -37,4 +37,6 @@ jobs:
       run: |
         echo $SECRET_KEY_AMAZON_LINUX > "Virginia_key.pem"
         chmod 400 Virginia_key.pem
-        ssh -i "Virginia_key.pem" ec2-user@ec2-3-230-24-140.compute-1.amazonaws.com
+        ssh -tt -i "Virginia_key.pem" ec2-user@ec2-3-230-24-140.compute-1.amazonaws.com
+        exit
+        echo "Complite"
