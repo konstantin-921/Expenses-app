@@ -11,7 +11,6 @@ jobs:
     - uses: actions/checkout@master
     - name: Build Expenses-app Docker image
       run: |
-        cd client-app 
         npm ci
         docker image build -f Dockerfile -t expenses-staging ./.
     - name: Set AWS credentionals
