@@ -15,22 +15,22 @@ jobs:
         aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws configure set region us-east-1
         aws configure set output json
-    - name: Test AWS CLI
-      run: |
-        aws ec2 describe-instance-attribute --instance-id i-07c865c5bbf880d94 --attribute instanceType
-    - name: Login AWS ECR
-      run: |
-        npm ci
-        $(aws ecr get-login --no-include-email --region us-east-1)
-    - name: Build Expenses-app Docker image
-      run: |
-        docker build -t expenses-app .
-    - name: Tag the Docker image
-      run: |
-        docker tag expenses-app 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:`git rev-parse HEAD`
-    - name: Push the Docker image to AWS ECR
-      run: |
-        docker push 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:`git rev-parse HEAD`
+    # - name: Test AWS CLI
+    #   run: |
+    #     aws ec2 describe-instance-attribute --instance-id i-07c865c5bbf880d94 --attribute instanceType
+    # - name: Login AWS ECR
+    #   run: |
+    #     npm ci
+    #     $(aws ecr get-login --no-include-email --region us-east-1)
+    # - name: Build Expenses-app Docker image
+    #   run: |
+    #     docker build -t expenses-app .
+    # - name: Tag the Docker image
+    #   run: |
+    #     docker tag expenses-app 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:`git rev-parse HEAD`
+    # - name: Push the Docker image to AWS ECR
+    #   run: |
+    #     docker push 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:`git rev-parse HEAD`
     - name: Authenticate as the AWS EC2
       env:
         SECRET_KEY_AMAZON_LINUX: ${{secrets.SECRET_KEY_AMAZON_LINUX}}
@@ -40,7 +40,7 @@ jobs:
         # echo "$var"
         # chmod 400 Virginia_key.pem
         ssh-keygen -t rsa -f my_rsa_key
-        aws ec2 describe-instance-attribute --instance-id i-07c865c5bbf880d94 --attribute instanceType
+        aws ec2 describe-instances --output table
         aws ec2-instance-connect send-ssh-public-key --instance-id i-07c865c5bbf880d94 --availability-zone us-east-1a --instance-os-user ec2-user --ssh-public-key file://my_rsa_key.pub
         ssh -i my_rsa_key ec2-user@ec2-54-167-192-240.compute-1.amazonaws.com
         ls
