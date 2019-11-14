@@ -39,5 +39,5 @@ jobs:
         var=$(cat Virginia_key.pem)
         echo "$var"
         chmod 400 Virginia_key.pem
-        ssh -i "Virginia_key.pem" ec2-user@ec2-54-167-192-240.compute-1.amazonaws.com
+        ssh -t -t -i "Virginia_key.pem" ec2-user@ec2-54-167-192-240.compute-1.amazonaws.com
         ls
