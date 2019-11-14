@@ -31,12 +31,11 @@ jobs:
     - name: Push the Docker image to AWS ECR
       run: |
         docker push 028711553531.dkr.ecr.us-east-1.amazonaws.com/expenses-app:`git rev-parse HEAD`
-    # - name: Authenticate as the AWS EC2
-    #   env:
-    #     SECRET_KEY_AMAZON_LINUX: ${{secrets.SECRET_KEY_AMAZON_LINUX}}
-    #   run: |
-    #     echo $SECRET_KEY_AMAZON_LINUX > "Virginia_key.pem"
-    #     chmod 400 Virginia_key.pem
-    #     ssh -tt -i "Virginia_key.pem" ec2-user@ec2-3-230-24-140.compute-1.amazonaws.com
-    #     exit
-    #     echo "Complite"
+    - name: Authenticate as the AWS EC2
+      env:
+        SECRET_KEY_AMAZON_LINUX: ${{secrets.SECRET_KEY_AMAZON_LINUX}}
+      run: |
+        echo $SECRET_KEY_AMAZON_LINUX > "Virginia_key.pem"
+        var=$(cat Virginia_key.pem)
+        echo "$var"
+        chmod 400 Virginia_key.pem
