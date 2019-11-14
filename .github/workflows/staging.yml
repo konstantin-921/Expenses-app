@@ -42,5 +42,6 @@ jobs:
         # ssh-keygen -t rsa -f my_rsa_key -q -P ""
         # aws ec2-instance-connect send-ssh-public-key --instance-id i-07c865c5bbf880d94 --availability-zone us-east-1d --instance-os-user ec2-user --ssh-public-key file://my_rsa_key.pub
         ssh -i Virginia_key.pem -o StrictHostKeyChecking=no ec2-user@ec2-3-83-49-253.compute-1.amazonaws.com
+        touch new
         echo "Success!!!"
         exit
