@@ -41,6 +41,6 @@ jobs:
         # chmod 400 Virginia_key.pem
         ssh-keygen -t rsa -f my_rsa_key
         aws ec2 describe-instances --output table
-        aws ec2-instance-connect send-ssh-public-key --instance-id i-07c865c5bbf880d94 --availability-zone us-east-1a --instance-os-user ec2-user --ssh-public-key file://my_rsa_key.pub
+        aws ec2-instance-connect send-ssh-public-key --instance-id i-07c865c5bbf880d94 --availability-zone us-east-1d --instance-os-user ec2-user --ssh-public-key file://my_rsa_key.pub
         ssh -i my_rsa_key ec2-user@ec2-54-167-192-240.compute-1.amazonaws.com
         ls
